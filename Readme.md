@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
-* Студент: [Natalia Chirca](https://up.htmlacademy.ru/ecmascript/16/user/1868813).
-* Наставник: `Дмитрий Гуляев`.
+* Студент: [Natalia Chirca](https://up.htmlacademy.ru/ecmascript/16/user/1868813.
+* Наставник: [Дмитрий Гуляев](https://htmlacademy.ru/profile/dima).
 
 ---
 
