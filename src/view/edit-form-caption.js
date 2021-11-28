@@ -1,4 +1,4 @@
-const createFormCaptionTemplate = `
+const createEditFormCaptionTemplate = `
 <div class="event__type-wrapper">
     <label class="event__type  event__type-btn" for="event-type-toggle-1">
         <span class="visually-hidden">
@@ -113,4 +113,4 @@ const createFormCaptionTemplate = `
     <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="160">
 </div>
 `;
-export { createFormCaptionTemplate };
+export { createEditFormCaptionTemplate };

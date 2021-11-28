@@ -1,5 +1,5 @@
 import {createOfferItemTemplate} from './offer-item-view.js';
-const createOfferListTemplate = `
+const createAvailableOffersTemplate = `
 <section class="event__section  event__section--offers">
     <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
@@ -12,4 +12,4 @@ const createOfferListTemplate = `
     </div>
 </section>
 `;
-export {createOfferListTemplate};
+export {createAvailableOffersTemplate};

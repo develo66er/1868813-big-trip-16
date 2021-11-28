@@ -1,12 +1,12 @@
-import { createFormCaptionTemplate } from './edit-form-caption.js';
-import { createOfferListTemplate } from './available-offers-view.js';
+import { createEditFormCaptionTemplate } from './edit-form-caption.js';
+import { createAvailableOffersTemplate } from './available-offers-view.js';
 import { createDestinationTemplate } from './destination-view.js';
-const createAddFormTemplate = () => {
-  const destinationImages = ['img/photos/1.jpg','img/photos/2.jpg','img/photos/3.jpg','img/photos/4.jpg','img/photos/5.jpg'];
+const createAddFormTemplate = (isOffersPresent, isDestinationPresent) => {
+  const destinationImages = ['img/photos/1.jpg', 'img/photos/2.jpg', 'img/photos/3.jpg', 'img/photos/4.jpg', 'img/photos/5.jpg'];
   return `
 <form class="event event--edit" action="#" method="post">
     <header class="event__header">
-    ${createFormCaptionTemplate}
+    ${createEditFormCaptionTemplate}
 
         <button class="event__save-btn  btn  btn--blue" type="submit">
           Save
@@ -16,9 +16,9 @@ const createAddFormTemplate = () => {
         </button>
     </header>
     <section class="event__details">
-      ${createOfferListTemplate}
+      ${isOffersPresent ? createAvailableOffersTemplate : ''}
 
-      ${createDestinationTemplate(destinationImages)}
+      ${isDestinationPresent ? createDestinationTemplate(destinationImages) : ''}
     </section>
 </form>
 `;
