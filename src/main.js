@@ -6,8 +6,10 @@ import { createEventPointTemplate } from './view/event-point-view.js';
 import { createSortTemplate } from './view/sort-view.js';
 import { renderTemplate } from './render-view.js';
 import { RenderPosition } from './RenderPosition.js';
+import { generatePoints } from './create-mock-data.js';
 
-const TRIP_EVENTS_NUMBER = 3;
+const TRIP_EVENTS_NUMBER = 20;
+const points = generatePoints(TRIP_EVENTS_NUMBER);
 const menuContainer = document.querySelector('.trip-controls__navigation');
 const filterListContainer = document.querySelector('.trip-controls__filters');
 const tripEventsContainer = document.querySelector('.trip-events');
@@ -16,19 +18,22 @@ const tripEventsContainer = document.querySelector('.trip-events');
 renderTemplate(menuContainer, createMenuTemplate, RenderPosition.BEFOREEND);
 renderTemplate(filterListContainer, createFilterTemplate, RenderPosition.BEFOREEND);
 renderTemplate(tripEventsContainer, createSortTemplate, RenderPosition.AFTERBEGIN);
+
 const tripEventList = document.createElement('ul');
+
 tripEventList.classList.add('trip-events__list');
+
 for (let index = 0; index < TRIP_EVENTS_NUMBER; index++) {
   const tripEventItem = document.createElement('li');
   tripEventItem.classList.add('trip-events__item');
   if (index === 0) {
-    renderTemplate(tripEventItem, createAddFormTemplate(true,true), RenderPosition.BEFOREEND);
+    renderTemplate(tripEventItem, createAddFormTemplate(points[index]), RenderPosition.BEFOREEND);
   } else {
     let template;
     if (index === 2) {
-      template = createEditFormTemplate(true,true);
+      template = createEditFormTemplate(points[index]);
     } else {
-      template = createEventPointTemplate;
+      template = createEventPointTemplate(points[index]);
     }
     renderTemplate(tripEventItem, template, RenderPosition.BEFOREEND);
   }
