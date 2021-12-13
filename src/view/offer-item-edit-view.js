@@ -1,29 +1,51 @@
+import { OfferInfoView } from './offer-info-view.js';
+import { createElement } from '../render-view.js';
 
-import {createOfferInfoTemplate} from './offer-info-view.js';
+class OfferItemEditView {
+  #element = null;
+  #offer = null;
+  #createOfferItemEditTemplate = () => {
 
-const createOfferItemEditTemplate = (offer) => {
+    const offerChunks = this.#offer.title.split(' ');
 
-  const offerChunks = offer.title.split(' ');
+    const offerName = offerChunks[offerChunks.length - 1];
 
-  const offerName= offerChunks[offerChunks.length-1];
+    return `
+          <div 
+            class="event__offer-selector">
+            <input 
+              class="event__offer-checkbox  visually-hidden" 
+              id="event-offer-${offerName}-${this.#offer.id}" 
+              type="checkbox"
+              name="event-offer-${offerName}">
+  
+            <label 
+              class="event__offer-label" 
+              for="event-offer-${offerName}-${this.#offer.id}">
+                ${new OfferInfoView(this.#offer.title, this.#offer.price).template}
+            </label>
+  
+          </div>
+        `;
+  };
 
-  return `
-        <div 
-          class="event__offer-selector">
-          <input 
-            class="event__offer-checkbox  visually-hidden" 
-            id="event-offer-${offerName}-${offer.id}" 
-            type="checkbox"
-            name="event-offer-${offerName}">
+  constructor(offer) {
+    this.#offer = offer;
+  }
 
-          <label 
-            class="event__offer-label" 
-            for="event-offer-${offerName}-${offer.id}">
-              ${createOfferInfoTemplate(offer.title,offer.price)}
-          </label>
+  get element() {
+    if (this.#element === null) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
 
-        </div>
-      `;
-};
+  get template() {
+    return this.#createOfferItemEditTemplate();
+  }
 
-export { createOfferItemEditTemplate };
+  removeElement() {
+    this.#element = null;
+  }
+}
+export { OfferItemEditView };

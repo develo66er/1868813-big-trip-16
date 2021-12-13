@@ -1,13 +1,16 @@
-import { createEditFormCaptionTemplate } from './edit-form-caption.js';
-import { createEventDetailsTemplate } from './event-details-view.js';
+import { EditFormCaptionView } from './edit-form-caption-view.js';
+import { EventDetailsView } from './event-details-view.js';
+import { createElement } from '../render-view.js';
 
-const createEditFormTemplate = (point) => `
-<form class="event event--edit" action="#" method="post">
+class EditFormView {
+  #element = null;
+  #point = null;
+  #createEditFormTemplate = () => `<form class="event event--edit" action="#" method="post">
 
     <header
       class="event__header">
 
-      ${createEditFormCaptionTemplate(point)}
+      ${new EditFormCaptionView(this.#point).template}
 
       <button
         class="event__save-btn  btn  btn--blue"
@@ -31,9 +34,28 @@ const createEditFormTemplate = (point) => `
 
     </header>
     
-    ${point.destination || (point.offers
-    && point.offers.offers && point.offers.offers.length > 0) ? createEventDetailsTemplate(point) : ''}
+    ${this.#point.destination || (this.#point.offers
+      && this.#point.offers.offers && this.#point.offers.offers.length > 0) ? new EventDetailsView(this.#point).template : ''}
     
-</form>
-`;
-export { createEditFormTemplate };
+</form>`;
+
+  constructor(point) {
+    this.#point = point;
+  }
+
+  get element() {
+    if (this.#element === null) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return this.#createEditFormTemplate();
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
+export { EditFormView };

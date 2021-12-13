@@ -1,4 +1,4 @@
-import { EventPointType } from './EventPointType.js';
+import { EventPointType } from './event-point-type.js';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 

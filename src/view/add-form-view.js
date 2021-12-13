@@ -1,34 +1,56 @@
-import { createEditFormCaptionTemplate } from './edit-form-caption.js';
-import { createEventDetailsTemplate } from './event-details-view.js';
+import { EditFormCaptionView } from './edit-form-caption-view.js';
+import { EventDetailsView } from './event-details-view.js';
+import { createElement } from '../render-view.js';
 
-const createAddFormTemplate = (point) => `
-<form 
-  class="event event--edit"
-  action="#"
-  method="post">
+class AddFormView {
+  #element = null;
+  #point = null;
+  #createAddFormTemplate = () => `<form 
+              class="event event--edit"
+              action="#"
+              method="post">
 
-  <header
-    class="event__header">
+              <header
+                class="event__header">
 
-    ${createEditFormCaptionTemplate(point, true)}
+                ${new EditFormCaptionView(this.#point, true).template}
 
-    <button 
-      class="event__save-btn  btn  btn--blue"
-      type="submit">
-        Save
-    </button>
+                <button 
+                  class="event__save-btn  btn  btn--blue"
+                  type="submit">
+                    Save
+                </button>
 
-    <button 
-      class="event__reset-btn" type="reset">
-        Cancel
-    </button>
+                <button 
+                  class="event__reset-btn" type="reset">
+                    Cancel
+                </button>
 
-  </header>
+              </header>
 
-    ${point.destination || (point.offers
-    && point.offers.offers && point.offers.offers.length > 0) ? createEventDetailsTemplate(point) : ''}
+                ${this.#point.destination || (this.#point.offers
+      && this.#point.offers.offers && this.#point.offers.offers.length > 0) ? new EventDetailsView(this.#point).template : ''}
 
-</form>
-`;
+            </form>`;
 
-export { createAddFormTemplate };
+  constructor(point) {
+    this.#point = point;
+  }
+
+  get element() {
+    if (this.#element === null) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return this.#createAddFormTemplate();
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
+
+export { AddFormView };

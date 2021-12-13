@@ -1,16 +1,33 @@
 import { destinationNames } from '../create-mock-data.js';
+import { createElement } from '../render-view.js';
 
-const createDestinationNamesTemplate = `
-<datalist
-    id="destination-list-1">
+class DestinationNamesView {
+  #element = null;
+  #createDestinationNamesTemplate = `<datalist
+     id="destination-list-1">
+ 
+     ${destinationNames.map((destinationName) => `
+         <option
+             value="${destinationName}">
+         </option>
+     `).reduce((prev, next) => `${prev} ${next}`)}
+ 
+    </datalist>`;
 
-    ${destinationNames.map((destinationName) => `
-        <option
-            value="${destinationName}">
-        </option>
-    `).reduce((prev, next) => `${prev} ${next}`)}
+  get element() {
+    if (this.#element === null) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
 
-</datalist>`;
+  get template() {
+    return this.#createDestinationNamesTemplate;
+  }
 
-export { createDestinationNamesTemplate };
+  removeElement() {
+    this.#element = null;
+  }
+}
+export { DestinationNamesView };
 

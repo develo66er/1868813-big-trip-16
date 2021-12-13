@@ -1,5 +1,9 @@
-const createSortTemplate = `
-<form 
+import { createElement } from '../render-view.js';
+
+class SortView {
+  #element = null;
+  #point = null;
+  #createSortTemplate = `<form 
   class="trip-events__trip-sort  trip-sort" 
   action="#" 
   method="get">
@@ -94,6 +98,21 @@ const createSortTemplate = `
 
   </div>  
           
-</form>
-`;
-export { createSortTemplate };
+</form>`;
+
+  get element() {
+    if (this.#element === null) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return this.#createSortTemplate;
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
+export { SortView };
