@@ -1,17 +1,37 @@
-import { createAvailableOffersTemplate } from './available-offers-view.js';
-import { createDestinationTemplate } from './destination-view.js';
+import { AvailableOffersView } from './available-offers-view.js';
+import { DestinationView } from './destination-view.js';
+import { createElement } from '../render-view.js';
 
-const createEventDetailsTemplate = (point) => `
+class EventDetailsView {
+  #element = null;
+  #point = null;
+  #createEventDetailsTemplate = () => `<section
+      class="event__details">
 
-    <section
-        class="event__details">
+      ${this.#point.offers && this.#point.offers.offers && this.#point.offers.offers.length > 0 ? new AvailableOffersView(this.#point.offers.offers).template : ''}
 
-        ${point.offers && point.offers.offers && point.offers.offers.length > 0 ? createAvailableOffersTemplate(point.offers.offers) : ''}
+      ${this.#point.destination ? new DestinationView(this.#point.destination).template : ''}
 
-        ${point.destination ? createDestinationTemplate(point.destination) : ''}
+  </section>`;
 
-    </section>
-`;
+  constructor(point) {
+    this.#point = point;
+  }
 
-export { createEventDetailsTemplate };
+  get element() {
+    if (this.#element === null) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return this.#createEventDetailsTemplate();
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
+export { EventDetailsView };
 
