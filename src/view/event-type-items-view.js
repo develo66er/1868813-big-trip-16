@@ -2,12 +2,13 @@ import { EventPointType } from '../event-point-type.js';
 import { EventTypeItemView } from './event-type-item-view.js';
 import { createElement } from '../render-view.js';
 
+const createEventTypeItemsTemplate = () => Object
+  .values(EventPointType)
+  .map((type) => new EventTypeItemView(type).template)
+  .reduce((prev, next) => `${prev} ${next}`);
+
 class EventTypeItemsView {
   #element = null;
-  #createEventTypeItemsTemplate = ()=>Object
-    .values(EventPointType)
-    .map((type) => new EventTypeItemView(type).template)
-    .reduce((prev, next) => `${prev} ${next}`);
 
   get element() {
     if (this.#element === null) {
@@ -17,7 +18,7 @@ class EventTypeItemsView {
   }
 
   get template() {
-    return this.#createEventTypeItemsTemplate();
+    return createEventTypeItemsTemplate();
   }
 
   removeElement() {

@@ -1,14 +1,15 @@
 import { OfferInfoView } from './offer-info-view.js';
 import { createElement } from '../render-view.js';
 
+const createOfferItemTemplate = (offerTitle, offerPrice) => `<li 
+class="event__offer">
+  ${new OfferInfoView(offerTitle, offerPrice).template}
+</li>`;
+
 class OfferItemView {
   #offerTitle = null;
   #offerPrice = null;
   #element = null;
-  #createOfferItemTemplate = () => `<li 
-    class="event__offer">
-      ${new OfferInfoView(this.#offerTitle, this.#offerPrice).template}
-  </li>`;
 
   constructor(offerTitle, offerPrice) {
     this.#offerTitle = offerTitle;
@@ -23,7 +24,7 @@ class OfferItemView {
   }
 
   get template() {
-    return this.#createOfferItemTemplate();
+    return createOfferItemTemplate(this.#offerTitle, this.#offerPrice);
   }
 
   removeElement() {

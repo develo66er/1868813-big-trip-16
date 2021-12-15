@@ -1,12 +1,10 @@
 import { createElement } from '../render-view.js';
 
-class FileterView {
-  #element = null;
-  #createFilterTemplate = `<form 
+const createFilterTemplate = `<form 
     class="trip-filters" 
     action="#" 
     method="get">
-  
+
     <div 
       class="trip-filters__filter">
       <input 
@@ -22,25 +20,25 @@ class FileterView {
         for="filter-everything">
           Everything
       </label>
-  
+
     </div>
-  
+
     <div
       class="trip-filters__filter">
-  
+
       <input
         id="filter-future"
         class="trip-filters__filter-input  visually-hidden" 
         type="radio" 
         name="trip-filter" 
         value="future">
-  
+
       <label class="trip-filters__filter-label" for="filter-future">
         Future
       </label>
-  
+
     </div>
-  
+
     <div
       class="trip-filters__filter">
       <input 
@@ -49,21 +47,24 @@ class FileterView {
         type="radio" 
         name="trip-filter" 
         value="past">
-  
+
       <label 
         class="trip-filters__filter-label" 
         for="filter-past">
         Past
       </label>
-  
+
     </div>
-  
+
     <button 
       class="visually-hidden" 
       type="submit">
         Accept filter
     </button>
   </form>`;
+
+class FilterView {
+  #element = null;
 
   get element() {
     if (this.#element === null) {
@@ -73,11 +74,11 @@ class FileterView {
   }
 
   get template() {
-    return this.#createFilterTemplate;
+    return createFilterTemplate;
   }
 
   removeElement() {
     this.#element = null;
   }
 }
-export { FileterView };
+export { FilterView };
