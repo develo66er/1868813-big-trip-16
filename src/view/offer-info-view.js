@@ -1,18 +1,19 @@
 import { createElement } from '../render-view.js';
 
+const createOfferInfoTemplate = (offerTitle, offerPrice) => `<span 
+  class="event__offer-title">
+    ${offerTitle}
+  </span>
+    &plus;&euro;&nbsp;
+  <span 
+  class="event__offer-price">
+    ${offerPrice}
+  </span>`;
+
 class OfferInfoView {
   #element = null;
   #offerTitle = null;
   #offerPrice = null;
-  #createOfferInfoTemplate = () => `<span 
-class="event__offer-title">
-  ${this.#offerTitle}
-</span>
-  &plus;&euro;&nbsp;
-<span 
-class="event__offer-price">
-  ${this.#offerPrice}
-</span>`;
 
   constructor(offerTitle, offerPrice) {
     this.#offerTitle = offerTitle;
@@ -27,7 +28,7 @@ class="event__offer-price">
   }
 
   get template() {
-    return this.#createOfferInfoTemplate();
+    return createOfferInfoTemplate(this.#offerTitle, this.#offerPrice);
   }
 
   removeElement() {

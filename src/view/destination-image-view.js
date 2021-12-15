@@ -1,18 +1,19 @@
 import { createElement } from '../render-view.js';
 
+const createDestinationImageTemplate = (images) => `<div 
+class="event__photos-container">
+<div
+  class="event__photos-tape">
+
+    ${images.map((image) => `<img class="event__photo" src="${image.src}" alt="${image.description}">`).reduce((prev, next) => `${prev}${next}`)}
+    
+</div>
+</div>
+`;
+
 class DestinationImageView {
   #element = null;
   #images = null;
-  #createDestinationImageTemplate = () => `<div 
-  class="event__photos-container">
-  <div
-    class="event__photos-tape">
-
-      ${this.#images.map((image) => `<img class="event__photo" src="${image.src}" alt="${image.description}">`).reduce((prev, next) => `${prev}${next}`)}
-      
-  </div>
-</div>
-`;
 
   constructor(images) {
     this.#images = images;
@@ -26,7 +27,7 @@ class DestinationImageView {
   }
 
   get template() {
-    return this.#createDestinationImageTemplate();
+    return createDestinationImageTemplate(this.#images);
   }
 
   removeElement() {

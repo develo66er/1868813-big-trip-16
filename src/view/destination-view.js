@@ -1,24 +1,25 @@
 import { DestinationImageView } from './destination-image-view.js';
 import { createElement } from '../render-view.js';
 
+const createDestinationTemplate = (destination) => `<section 
+class="event__section  event__section--destination">
+<h3 
+  class="event__section-title  event__section-title--destination">
+  ${destination.name}
+</h3>
+              
+<p
+ class="event__destination-description">
+   ${destination.description}
+</p>
+        
+ ${(destination.pictures && destination.pictures.length > 0) ? new DestinationImageView(destination.pictures).template : ''}
+              
+</section>`;
+
 class DestinationView {
   #destination = null;
   #element = null;
-  #createDestinationTemplate = () => `<section 
-    class="event__section  event__section--destination">
-    <h3 
-      class="event__section-title  event__section-title--destination">
-      ${this.#destination.name}
-    </h3>
-                  
-    <p
-     class="event__destination-description">
-       ${this.#destination.description}
-    </p>
-            
-     ${(this.#destination.pictures && this.#destination.pictures.length > 0) ? new DestinationImageView(this.#destination.pictures).template : ''}
-                  
-  </section>`;
 
   constructor(destination) {
     this.#destination = destination;
@@ -32,7 +33,7 @@ class DestinationView {
   }
 
   get template() {
-    return this.#createDestinationTemplate();
+    return createDestinationTemplate(this.#destination);
   }
 
   removeElement() {
