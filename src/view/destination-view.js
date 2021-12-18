@@ -1,5 +1,5 @@
 import { DestinationImageView } from './destination-image-view.js';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createDestinationTemplate = (destination) => `<section 
 class="event__section  event__section--destination">
@@ -17,27 +17,17 @@ class="event__section  event__section--destination">
               
 </section>`;
 
-class DestinationView {
+class DestinationView extends AbstractView{
   #destination = null;
-  #element = null;
 
   constructor(destination) {
+    super();
     this.#destination = destination;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createDestinationTemplate(this.#destination);
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { DestinationView };

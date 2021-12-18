@@ -1,4 +1,4 @@
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createDestinationImageTemplate = (images) => `<div 
 class="event__photos-container">
@@ -11,27 +11,17 @@ class="event__photos-container">
 </div>
 `;
 
-class DestinationImageView {
-  #element = null;
+class DestinationImageView extends AbstractView{
   #images = null;
 
   constructor(images) {
+    super();
     this.#images = images;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createDestinationImageTemplate(this.#images);
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { DestinationImageView };

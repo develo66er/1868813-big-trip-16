@@ -1,6 +1,6 @@
 import { AvailableOffersView } from './available-offers-view.js';
 import { DestinationView } from './destination-view.js';
-import { createElement } from '../render-view.js';
+import { AbstractView } from './abstract-view';
 
 const createEventDetailsTemplate = (point) => `<section
 class="event__details">
@@ -11,28 +11,18 @@ ${point.destination ? new DestinationView(point.destination).template : ''}
 
 </section>`;
 
-class EventDetailsView {
-  #element = null;
+class EventDetailsView extends AbstractView {
   #point = null;
 
   constructor(point) {
+    super();
     this.#point = point;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createEventDetailsTemplate(this.#point);
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { EventDetailsView };
 

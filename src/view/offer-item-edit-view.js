@@ -1,5 +1,5 @@
 import { OfferInfoView } from './offer-info-view.js';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createOfferItemEditTemplate = (offer) => {
 
@@ -27,27 +27,17 @@ const createOfferItemEditTemplate = (offer) => {
 };
 
 
-class OfferItemEditView {
-  #element = null;
+class OfferItemEditView extends AbstractView{
   #offer = null;
 
   constructor(offer) {
+    super();
     this.#offer = offer;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createOfferItemEditTemplate(this.#offer);
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { OfferItemEditView };

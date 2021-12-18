@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { OfferItemsView } from './offer-items-view.js';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const getUnitFormatted = (value, unit) => {
   if (value === 0) {
@@ -108,27 +108,32 @@ const createEventPointTemplate = (point) => {
               </div>`;
 };
 
-class EventPointView {
-  #element = null;
+class EventPointView extends AbstractView{
   #point = null;
-
+  #handler={};
   constructor(point) {
+    super();
     this.#point = point;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createEventPointTemplate(this.#point);
   }
 
-  removeElement() {
-    this.#element = null;
+  setRollupButtonClickHandler = (callback)=>{
+    this.#handler.rollupButtonClick = callback;
+  };
+
+  addRollupButtonClickHandler = ()=>{
+    this.element.querySelector('.event__rollup-btn').addEventListener('click',this.#rollupButtonClickHandler);
+  }
+
+  removeRollupButtonClickHandler = ()=>{
+    this.element.querySelector('.event__rollup-btn').removeEventListener('click',this.#rollupButtonClickHandler);
+  }
+
+  #rollupButtonClickHandler = ()=>{
+    this.#handler.rollupButtonClick();
   }
 }
 export { EventPointView };

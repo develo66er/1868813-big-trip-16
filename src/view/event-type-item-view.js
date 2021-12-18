@@ -1,4 +1,4 @@
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createEventTypeItemTemplate = (eventType) => {
   const eventTypeLowerCase = eventType.toLowerCase();
@@ -20,27 +20,17 @@ const createEventTypeItemTemplate = (eventType) => {
 };
 
 
-class EventTypeItemView {
-  #element = null;
+class EventTypeItemView extends AbstractView{
   #eventType = null;
 
   constructor(eventType) {
+    super();
     this.#eventType = eventType;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createEventTypeItemTemplate(this.#eventType);
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { EventTypeItemView };

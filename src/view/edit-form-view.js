@@ -1,6 +1,6 @@
 import { EditFormCaptionView } from './edit-form-caption-view.js';
 import { EventDetailsView } from './event-details-view.js';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createEditFormTemplate = (point) => `<form class="event event--edit" action="#" method="post">
 
@@ -36,27 +36,49 @@ ${point.destination || (point.offers
 
 </form>`;
 
-class EditFormView {
-  #element = null;
+class EditFormView extends AbstractView{
   #point = null;
-
+  #handler={};
   constructor(point) {
+    super();
     this.#point = point;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createEditFormTemplate(this.#point);
   }
 
-  removeElement() {
-    this.#element = null;
+  setFormSubmitHandler = (callback)=>{
+    this.#handler.formSubmit = callback;
+  };
+
+  addFormSubmitHandler = ()=>{
+    this.element.addEventListener('submit',this.#formSubmitHandler);
+  }
+
+  removeFormSubmitHandler = ()=>{
+    this.element.removeEventListener('submit',this.#formSubmitHandler);
+  }
+
+  #formSubmitHandler = (evt)=>{
+    evt.preventDefault();
+    this.#handler.formSubmit();
+  };
+
+  setRollupButtonClickHandler = (callback)=>{
+    this.#handler.rollupButtonClick = callback;
+  };
+
+  addRollupButtonClickHandler = ()=>{
+    this.element.querySelector('.event__rollup-btn').addEventListener('click',this.#rollupButtonClickHandler);
+  };
+
+  removeRollupButtonClickHandler = ()=>{
+    this.element.querySelector('.event__rollup-btn').removeEventListener('click',this.#rollupButtonClickHandler);
+  };
+
+  #rollupButtonClickHandler = ()=>{
+    this.#handler.rollupButtonClick();
   }
 }
 export { EditFormView };
