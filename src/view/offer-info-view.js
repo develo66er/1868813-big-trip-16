@@ -1,4 +1,4 @@
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createOfferInfoTemplate = (offerTitle, offerPrice) => `<span 
   class="event__offer-title">
@@ -10,30 +10,20 @@ const createOfferInfoTemplate = (offerTitle, offerPrice) => `<span
     ${offerPrice}
   </span>`;
 
-class OfferInfoView {
-  #element = null;
+class OfferInfoView extends AbstractView{
   #offerTitle = null;
   #offerPrice = null;
 
   constructor(offerTitle, offerPrice) {
+    super();
     this.#offerTitle = offerTitle;
     this.#offerPrice = offerPrice;
-  }
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createOfferInfoTemplate(this.#offerTitle, this.#offerPrice);
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 
 export { OfferInfoView };

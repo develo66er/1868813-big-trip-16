@@ -1,29 +1,18 @@
 import { EventPointType } from '../event-point-type.js';
 import { EventTypeItemView } from './event-type-item-view.js';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createEventTypeItemsTemplate = () => Object
   .values(EventPointType)
   .map((type) => new EventTypeItemView(type).template)
   .reduce((prev, next) => `${prev} ${next}`);
 
-class EventTypeItemsView {
-  #element = null;
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
+class EventTypeItemsView extends AbstractView{
 
   get template() {
     return createEventTypeItemsTemplate();
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { EventTypeItemsView };
 

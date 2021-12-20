@@ -1,5 +1,5 @@
 import { destinationNames } from '../create-mock-data.js';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createDestinationNamesTemplate = `<datalist
 id="destination-list-1">
@@ -12,23 +12,12 @@ ${destinationNames.map((destinationName) => `
 
 </datalist>`;
 
-class DestinationNamesView {
-  #element = null;
-
-  get element() {
-    if (this.#element === null) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
+class DestinationNamesView extends AbstractView{
 
   get template() {
     return createDestinationNamesTemplate;
   }
 
-  removeElement() {
-    this.#element = null;
-  }
 }
 export { DestinationNamesView };
 

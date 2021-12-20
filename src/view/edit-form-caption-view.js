@@ -1,7 +1,7 @@
 import { EventTypeItemsView } from './event-type-items-view.js';
 import { DestinationNamesView } from './destination-names-view.js';
 import dayjs from 'dayjs';
-import { createElement } from '../render-view.js';
+import {AbstractView} from './abstract-view';
 
 const createEditFormCaptionTemplate = (point, isAddForm) => {
   let dateFrom;
@@ -131,29 +131,18 @@ const createEditFormCaptionTemplate = (point, isAddForm) => {
         `;
 };
 
-class EditFormCaptionView {
-    #element = null;
+class EditFormCaptionView extends AbstractView{
     #point = null;
     #isAddForm = false;
 
     constructor(point, isAddForm) {
+      super();
       this.#point = point;
       this.#isAddForm = isAddForm;
     }
 
-    get element() {
-      if (this.#element === null) {
-        this.#element = createElement(this.template);
-      }
-      return this.#element;
-    }
-
     get template() {
       return createEditFormCaptionTemplate(this.#point, this.#isAddForm);
-    }
-
-    removeElement() {
-      this.#element = null;
     }
 }
 export { EditFormCaptionView };
