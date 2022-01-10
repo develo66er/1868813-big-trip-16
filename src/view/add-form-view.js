@@ -1,6 +1,6 @@
 import { EditFormCaptionView } from './edit-form-caption-view.js';
 import { EventDetailsView } from './event-details-view.js';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 const createAddFormTemplate = (point, isAddForm) => `<form 
 class="event event--edit"
 action="#"
@@ -29,7 +29,7 @@ method="post">
 
 </form>`;
 
-class AddFormView extends AbstractView{
+class AddFormView extends AbstractView {
   #point = null;
 
   constructor(point) {

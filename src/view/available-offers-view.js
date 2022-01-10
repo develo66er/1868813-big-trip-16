@@ -1,5 +1,5 @@
 import { OfferItemEditView } from './offer-item-edit-view.js';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createAvailableOffersTemplate = (offers) => `
 <section class="event__section  event__section--offers">
@@ -16,7 +16,7 @@ const createAvailableOffersTemplate = (offers) => `
 </section>
 `;
 
-class AvailableOffersView extends AbstractView{
+class AvailableOffersView extends AbstractView {
   #offers = null;
 
   constructor(offers) {

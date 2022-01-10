@@ -1,6 +1,6 @@
 import { EditFormCaptionView } from './edit-form-caption-view.js';
 import { EventDetailsView } from './event-details-view.js';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createEditFormTemplate = (point) => `<form class="event event--edit" action="#" method="post">
 
@@ -36,9 +36,9 @@ ${point.destination || (point.offers
 
 </form>`;
 
-class EditFormView extends AbstractView{
+class EditFormView extends AbstractView {
   #point = null;
-  #handler={};
+  #handler = {};
   constructor(point) {
     super();
     this.#point = point;
@@ -48,36 +48,36 @@ class EditFormView extends AbstractView{
     return createEditFormTemplate(this.#point);
   }
 
-  setFormSubmitHandler = (callback)=>{
+  setFormSubmitHandler = (callback) => {
     this.#handler.formSubmit = callback;
   };
 
-  addFormSubmitHandler = ()=>{
-    this.element.addEventListener('submit',this.#formSubmitHandler);
+  addFormSubmitHandler = () => {
+    this.element.addEventListener('submit', this.#formSubmitHandler);
   }
 
-  removeFormSubmitHandler = ()=>{
-    this.element.removeEventListener('submit',this.#formSubmitHandler);
+  removeFormSubmitHandler = () => {
+    this.element.removeEventListener('submit', this.#formSubmitHandler);
   }
 
-  #formSubmitHandler = (evt)=>{
+  #formSubmitHandler = (evt) => {
     evt.preventDefault();
     this.#handler.formSubmit();
   };
 
-  setRollupButtonClickHandler = (callback)=>{
+  setRollupButtonClickHandler = (callback) => {
     this.#handler.rollupButtonClick = callback;
   };
 
-  addRollupButtonClickHandler = ()=>{
-    this.element.querySelector('.event__rollup-btn').addEventListener('click',this.#rollupButtonClickHandler);
+  addRollupButtonClickHandler = () => {
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#rollupButtonClickHandler);
   };
 
-  removeRollupButtonClickHandler = ()=>{
-    this.element.querySelector('.event__rollup-btn').removeEventListener('click',this.#rollupButtonClickHandler);
+  removeRollupButtonClickHandler = () => {
+    this.element.querySelector('.event__rollup-btn').removeEventListener('click', this.#rollupButtonClickHandler);
   };
 
-  #rollupButtonClickHandler = ()=>{
+  #rollupButtonClickHandler = () => {
     this.#handler.rollupButtonClick();
   }
 }

@@ -1,4 +1,4 @@
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createSortTemplate = `<form 
 class="trip-events__trip-sort  trip-sort" 
@@ -97,7 +97,7 @@ class="trip-sort__item  trip-sort__item--event">
         
 </form>`;
 
-class SortView extends AbstractView{
+class SortView extends AbstractView {
 
   get template() {
     return createSortTemplate;

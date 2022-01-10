@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { OfferItemsView } from './offer-items-view.js';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const getUnitFormatted = (value, unit) => {
   if (value === 0) {
@@ -10,13 +10,13 @@ const getUnitFormatted = (value, unit) => {
 };
 
 const createEventPointTemplate = (point) => {
-  const dateFrom = point.date_from.toISOString();
-  const dateFromDate = point.date_from.format('MMM DD');
-  const dateFromDateYear = point.date_from.format('YYYY-MM-DD');
-  const dateFromTimestamp = point.date_from.format('HH:mm');
-  const dateTo = point.date_to.toISOString();
-  const dateToTimestamp = point.date_to.format('HH:mm');
-  const diff = point.date_to.diff(point.date_from, 'minutes', true);
+  const dateFrom = point.dateFrom.toISOString();
+  const dateFromDate = point.dateFrom.format('MMM DD');
+  const dateFromDateYear = point.dateFrom.format('YYYY-MM-DD');
+  const dateFromTimestamp = point.dateFrom.format('HH:mm');
+  const dateTo = point.dateTo.toISOString();
+  const dateToTimestamp = point.dateTo.format('HH:mm');
+  const diff = point.dateTo.diff(point.dateFrom, 'minutes', true);
   const hours = parseInt(diff / 60, 10);
   const minutes = dayjs().minute(diff).$m;
   const durationValue = `${getUnitFormatted(hours, 'H')} ${getUnitFormatted(minutes, 'M')}`;
@@ -73,14 +73,14 @@ const createEventPointTemplate = (point) => {
 
                 <p class="event__price">
                   &euro;&nbsp;<span class="event__price-value">
-                    ${point.base_price}
+                    ${point.basePrice}
                   </span>
                 </p>
 
                 ${point.offers && point.offers.offers && point.offers.offers.length > 0 ? new OfferItemsView(point.offers.offers).template : ''}
                 
                 <button
-                  class="event__favorite-btn event__favorite-btn--active"
+                  class="event__favorite-btn ${point.isFavorite ? 'event__favorite-btn--active' : ''}"
                   type="button">
                   
                   <span 
@@ -108,9 +108,9 @@ const createEventPointTemplate = (point) => {
               </div>`;
 };
 
-class EventPointView extends AbstractView{
+class EventPointView extends AbstractView {
   #point = null;
-  #handler={};
+  #handler = {};
   constructor(point) {
     super();
     this.#point = point;
@@ -120,20 +120,37 @@ class EventPointView extends AbstractView{
     return createEventPointTemplate(this.#point);
   }
 
-  setRollupButtonClickHandler = (callback)=>{
+  setRollupButtonClickHandler = (callback) => {
     this.#handler.rollupButtonClick = callback;
   };
 
-  addRollupButtonClickHandler = ()=>{
-    this.element.querySelector('.event__rollup-btn').addEventListener('click',this.#rollupButtonClickHandler);
+  addRollupButtonClickHandler = () => {
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#rollupButtonClickHandler);
   }
 
-  removeRollupButtonClickHandler = ()=>{
-    this.element.querySelector('.event__rollup-btn').removeEventListener('click',this.#rollupButtonClickHandler);
+  removeRollupButtonClickHandler = () => {
+    this.element.querySelector('.event__rollup-btn').removeEventListener('click', this.#rollupButtonClickHandler);
   }
 
-  #rollupButtonClickHandler = ()=>{
+  #rollupButtonClickHandler = () => {
     this.#handler.rollupButtonClick();
+  }
+
+  setFavoritesAddClickHandler = (callback) => {
+    this.#handler.favoritesAddClick = callback;
+  }
+
+  addFavoritesAddClickHandler = () => {
+    this.element.querySelector('.event__favorite-btn').addEventListener('click', this.#favoritesAddClickHandler);
+  }
+
+  removeFavoritesAddClickHandler = () => {
+    this.element.querySelector('.event__favorite-btn').removeEventListener('click', this.#favoritesAddClickHandler);
+  }
+
+
+  #favoritesAddClickHandler = () => {
+    this.#handler.favoritesAddClick();
   }
 }
 export { EventPointView };

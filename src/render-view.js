@@ -1,5 +1,5 @@
 import { RenderPosition } from './render-position.js';
-import {AbstractView} from './view/abstract-view.js';
+import { AbstractView } from './view/abstract-view.js';
 
 const render = (container, element, place) => {
   const parent = container instanceof AbstractView ? container.element : container;
@@ -44,4 +44,17 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-export { render, replace, createElement };
+const remove = (component) => {
+  if (component === null) {
+    return;
+  }
+
+  if (!(component instanceof AbstractView)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.element.remove();
+  component.removeElement();
+};
+
+export { render, replace, createElement, remove };

@@ -1,4 +1,4 @@
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createOfferInfoTemplate = (offerTitle, offerPrice) => `<span 
   class="event__offer-title">
@@ -10,7 +10,7 @@ const createOfferInfoTemplate = (offerTitle, offerPrice) => `<span
     ${offerPrice}
   </span>`;
 
-class OfferInfoView extends AbstractView{
+class OfferInfoView extends AbstractView {
   #offerTitle = null;
   #offerPrice = null;
 
