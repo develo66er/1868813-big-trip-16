@@ -1,4 +1,4 @@
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createDestinationImageTemplate = (images) => `<div 
 class="event__photos-container">
@@ -11,7 +11,7 @@ class="event__photos-container">
 </div>
 `;
 
-class DestinationImageView extends AbstractView{
+class DestinationImageView extends AbstractView {
   #images = null;
 
   constructor(images) {

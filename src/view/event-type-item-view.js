@@ -1,4 +1,4 @@
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createEventTypeItemTemplate = (eventType) => {
   const eventTypeLowerCase = eventType.toLowerCase();
@@ -20,7 +20,7 @@ const createEventTypeItemTemplate = (eventType) => {
 };
 
 
-class EventTypeItemView extends AbstractView{
+class EventTypeItemView extends AbstractView {
   #eventType = null;
 
   constructor(eventType) {

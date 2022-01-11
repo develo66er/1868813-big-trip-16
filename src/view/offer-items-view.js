@@ -1,5 +1,5 @@
 import { OfferItemView } from './offer-item-view';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createOfferItemsTemplate = (offers) => `
 <h4 
@@ -11,7 +11,7 @@ const createOfferItemsTemplate = (offers) => `
     ${offers.map((offer) => new OfferItemView(offer.title, offer.price).template).reduce((prev, next) => `${prev} ${next}`)}
 </ul>`;
 
-class OfferItemsView extends AbstractView{
+class OfferItemsView extends AbstractView {
   #offers = null;
 
   constructor(offers) {

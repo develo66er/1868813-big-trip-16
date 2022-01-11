@@ -82,9 +82,9 @@ const getPictures = () => {
 };
 
 const generateDestination = () => ({
-  'description': getDestinationDescription(),
-  'name': DESTINATION_NAMES[getRandomInteger(0, DESTINATION_NAMES.length - 1)],
-  'pictures': getPictures()
+  description: getDestinationDescription(),
+  name: DESTINATION_NAMES[getRandomInteger(0, DESTINATION_NAMES.length - 1)],
+  pictures: getPictures()
 });
 
 const generateType = () => {
@@ -97,15 +97,15 @@ const generateRandomOffers = () => {
   const offers = getRandomNumberItems(offersTitles.slice(), 0, offersTitles.length - 1);
   let id = 0;
   return offers.map((offerTitle) => ({
-    'id': id++,
-    'title': offerTitle,
-    'price': getRandomInteger(OFFER_MIN_PRICE, OFFER_MAX_PRICE)
+    id: id++,
+    title: offerTitle,
+    price: getRandomInteger(OFFER_MIN_PRICE, OFFER_MAX_PRICE)
   }));
 };
 
 const generateOffers = () => ({
-  'type': generateType(),
-  'offers': generateRandomOffers()
+  type: generateType(),
+  offers: generateRandomOffers()
 });
 
 const generatePoint = () => {
@@ -114,14 +114,14 @@ const generatePoint = () => {
   const needDestination = Boolean(getRandomInteger(0, destinationNames.length - 1));
 
   return {
-    'base_price': getRandomInteger(0, MAX_BASE_PRICE),
-    'date_from': dateFromGenerated,
-    'date_to': dateToGenerated,
-    'destination': needDestination ? generateDestination() : null,
-    'id': nanoid(),
-    'is_favorite': Boolean(getRandomInteger(0, 1)),
-    'offers': needOffers ? generateOffers() : null,
-    'type': generateType(),
+    basePrice: getRandomInteger(0, MAX_BASE_PRICE),
+    dateFrom: dateFromGenerated,
+    dateTo: dateToGenerated,
+    destination: needDestination ? generateDestination() : null,
+    id: nanoid(),
+    isFavorite: Boolean(getRandomInteger(0, 1)),
+    offers: needOffers ? generateOffers() : null,
+    type: generateType(),
   };
 };
 

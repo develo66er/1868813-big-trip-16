@@ -1,5 +1,5 @@
 import { destinationNames } from '../create-mock-data.js';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createDestinationNamesTemplate = `<datalist
 id="destination-list-1">
@@ -12,7 +12,7 @@ ${destinationNames.map((destinationName) => `
 
 </datalist>`;
 
-class DestinationNamesView extends AbstractView{
+class DestinationNamesView extends AbstractView {
 
   get template() {
     return createDestinationNamesTemplate;

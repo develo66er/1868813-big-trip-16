@@ -1,5 +1,5 @@
 import { OfferInfoView } from './offer-info-view.js';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createOfferItemEditTemplate = (offer) => {
 
@@ -27,7 +27,7 @@ const createOfferItemEditTemplate = (offer) => {
 };
 
 
-class OfferItemEditView extends AbstractView{
+class OfferItemEditView extends AbstractView {
   #offer = null;
 
   constructor(offer) {

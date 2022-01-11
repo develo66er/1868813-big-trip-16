@@ -1,7 +1,7 @@
 import { EventTypeItemsView } from './event-type-items-view.js';
 import { DestinationNamesView } from './destination-names-view.js';
 import dayjs from 'dayjs';
-import {AbstractView} from './abstract-view';
+import { AbstractView } from './abstract-view';
 
 const createEditFormCaptionTemplate = (point, isAddForm) => {
   let dateFrom;
@@ -12,9 +12,9 @@ const createEditFormCaptionTemplate = (point, isAddForm) => {
     dateFrom = dateTo = dayjs().startOf('day').format('DD/MM/YY HH:mm');
     price = '';
   } else {
-    dateFrom = point.date_from ? point.date_from.format('DD/MM/YY HH:mm') : '';
-    dateTo = point.date_to ? point.date_to.format('DD/MM/YY HH:mm') : '';
-    price = `${point.base_price}`;
+    dateFrom = point.dateFrom ? point.dateFrom.format('DD/MM/YY HH:mm') : '';
+    dateTo = point.dateTo ? point.dateTo.format('DD/MM/YY HH:mm') : '';
+    price = `${point.basePrice}`;
   }
 
   return `
@@ -131,7 +131,7 @@ const createEditFormCaptionTemplate = (point, isAddForm) => {
         `;
 };
 
-class EditFormCaptionView extends AbstractView{
+class EditFormCaptionView extends AbstractView {
     #point = null;
     #isAddForm = false;
 
