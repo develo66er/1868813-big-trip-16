@@ -32,6 +32,7 @@ class TripPresenter {
     }else{
       this.#renderSortView();
       this.#renderAddForm(this.#points[0]);
+      this.#points.sort(sortByDate);
       this.#renderEventPoints();
       render(this.#tripEventsContainer, this.#tripEventList, RenderPosition.BEFOREEND);
     }
