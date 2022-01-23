@@ -29,7 +29,7 @@ const replace = (newElement, oldElement) => {
   const newChild = newElement instanceof AbstractView ? newElement.element : newElement;
   const oldChild = oldElement instanceof AbstractView ? oldElement.element : oldElement;
 
-  const parent = oldChild.parentElement;
+  const parent = oldChild.parentNode;
 
   if (parent === null) {
     throw new Error('Parent element doesn\'t exist');
