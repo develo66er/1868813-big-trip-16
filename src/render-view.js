@@ -52,8 +52,11 @@ const remove = (component) => {
   if (!(component instanceof AbstractView)) {
     throw new Error('Can remove only components');
   }
-
+  const parent=component.element.parentNode;
   component.element.remove();
+  if(parent){
+    parent.remove();
+  }
   component.removeElement();
 };
 
