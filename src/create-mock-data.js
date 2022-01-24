@@ -95,9 +95,8 @@ const generateType = () => {
 
 const generateRandomOffers = () => {
   const offers = getRandomNumberItems(offersTitles.slice(), 0, offersTitles.length - 1);
-  let id = 0;
   return offers.map((offerTitle) => ({
-    id: id++,
+    id: nanoid(),
     title: offerTitle,
     price: getRandomInteger(OFFER_MIN_PRICE, OFFER_MAX_PRICE)
   }));
