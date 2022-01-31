@@ -49,16 +49,16 @@ const createEditFormCaptionTemplate = (props) => {
     
             <label 
                 class="event__label  event__type-output" 
-                for="event-destination-1">
+                for="event-destination-${isAddForm ? '1' : '2'}">
                 ${eventType}
             </label>
     
             <input 
                 class="event__input  event__input--destination"
-                id="event-destination-1" type="text" 
+                id="event-destination-${isAddForm ? '1' : '2'}" type="text" 
                 name="event-destination"
                 value="${destination?destination.name:'Madrid'}" 
-                list="destination-list-1">
+                list="destination-list-${isAddForm ? '1' : '2'}">
             
             ${new DestinationNamesView().template}
     
@@ -68,25 +68,25 @@ const createEditFormCaptionTemplate = (props) => {
             class="event__field-group  event__field-group--time">
             
             <label class="visually-hidden" 
-                for="event-start-time-1">
+                for="event-start-time-${isAddForm ? '1' : '2'}">
                     From
             </label>
     
             <input class="event__input  event__input--time" 
-             id="event-start-time-1" 
+             id="event-start-time-${isAddForm ? '1' : '2'}" 
              type="text"
              name="event-start-time" 
              value="${dateFrom}">
                     &mdash;
             
             <label class="visually-hidden" 
-                for="event-end-time-1">
+                for="event-end-time-${isAddForm ? '1' : '2'}">
                     To
             </label>
     
             <input 
                 class="event__input  event__input--time"
-                id="event-end-time-1" type="text" 
+                id="event-end-time-${isAddForm ? '1' : '2'}" type="text" 
                 name="event-end-time" 
                 value="${dateTo}">
     
