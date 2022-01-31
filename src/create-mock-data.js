@@ -83,7 +83,7 @@ const getPictures = () => {
 
 const generateDestination = (destinationName) => ({
   description: getDestinationDescription(),
-  name: destinationName?destinationName:DESTINATION_NAMES[getRandomInteger(0, DESTINATION_NAMES.length - 1)],
+  name: destinationName ? destinationName : DESTINATION_NAMES[getRandomInteger(0, DESTINATION_NAMES.length - 1)],
   pictures: getPictures()
 });
 
@@ -103,7 +103,7 @@ const generateRandomOffers = () => {
 };
 
 const generateOffers = (passedType) => ({
-  type: passedType?passedType:generateType(),
+  type: passedType ? passedType : generateType(),
   offers: generateRandomOffers()
 });
 
@@ -124,26 +124,26 @@ const generatePoint = () => {
   };
 };
 
-const generateTypeToOffers = ()=>{
+const generateTypeToOffers = () => {
   const typeToOffers = new Map();
   const keys = Object.keys(EventPointType);
 
-  for(let i = 0; i<keys.length;i++){
+  for (let i = 0; i < keys.length; i++) {
     const type = keys[i];
-    typeToOffers.set(type,generateOffers(type));
+    typeToOffers.set(type, generateOffers(type));
   }
   return {
-    getOffersByType:(type)=>typeToOffers.get(type)
+    getOffersByType: (type) => typeToOffers.get(type)
   };
 };
 
-const generateDestinationNameToDestinations = ()=>{
+const generateDestinationNameToDestinations = () => {
   const destinationNameToDestinations = new Map();
-  for(let i = 0; i<DESTINATION_NAMES.length;i++){
-    destinationNameToDestinations.set(DESTINATION_NAMES[i],generateDestination(DESTINATION_NAMES[i]));
+  for (let i = 0; i < DESTINATION_NAMES.length; i++) {
+    destinationNameToDestinations.set(DESTINATION_NAMES[i], generateDestination(DESTINATION_NAMES[i]));
   }
   return {
-    getDescriptionByDestination:(destinationName)=>destinationNameToDestinations.get(destinationName)
+    getDescriptionByDestination: (destinationName) => destinationNameToDestinations.get(destinationName)
   };
 };
 
@@ -156,4 +156,4 @@ const generatePoints = (mockPointsNumber) => {
   return mockPoints;
 };
 
-export { generatePoints, destinationNames,generateTypeToOffers,generateDestinationNameToDestinations };
+export { generatePoints, destinationNames, generateTypeToOffers, generateDestinationNameToDestinations };

@@ -2,15 +2,15 @@ import { createEditFormCaptionTemplate } from './edit-form-caption-view.js';
 import { AvailableOffersView } from './available-offers-view.js';
 import { DestinationView } from './destination-view.js';
 import { SmartView } from './smart-view.js';
-import {generateTypeToOffers,generateDestinationNameToDestinations} from '../create-mock-data.js';
+import { generateTypeToOffers, generateDestinationNameToDestinations } from '../create-mock-data.js';
 import dayjs from 'dayjs';
 
 const createEventDetailsTemplate = (props) => {
-  const {offers,destination} = props;
+  const { offers, destination } = props;
   return `<section
 class="event__details">
 
-${offers? new AvailableOffersView(offers).template : ''}
+${offers ? new AvailableOffersView(offers).template : ''}
 
 ${destination ? new DestinationView(destination).template : ''}
 
@@ -18,8 +18,8 @@ ${destination ? new DestinationView(destination).template : ''}
 };
 
 const createEditFormTemplate = (props) => {
-  const {isAddForm,destination,offers} = props;
-  const isSubmitDisabled=false;
+  const { isAddForm, destination, offers } = props;
+  const isSubmitDisabled = false;
   return `<form class="event event--edit" action="#" method="post">
 
 <header
@@ -65,14 +65,14 @@ ${destination || (offers) ? createEventDetailsTemplate(props) : ''}
 
 class EditFormView extends SmartView {
   #handler = {};
-  constructor(point,isAddForm) {
+  constructor(point, isAddForm) {
     super();
-    this._data = EditFormView.parsePointToData(point,isAddForm);
+    this._data = EditFormView.parsePointToData(point, isAddForm);
     this.restoreHandlers();
   }
 
-  static parsePointToData = (point,isAddForm)=>{
-    const props = {...point,isAddForm:isAddForm};
+  static parsePointToData = (point, isAddForm) => {
+    const props = { ...point, isAddForm: isAddForm };
     if (isAddForm) {
       props.dateFrom = props.dateTo = dayjs().startOf('day').format('DD/MM/YY HH:mm');
       props.price = '';
@@ -83,15 +83,15 @@ class EditFormView extends SmartView {
     }
     props.eventType = point.type;
     props.destination = point.destination;
-    props.prevDestinationName = point.destination?point.destination.name:null;
+    props.prevDestinationName = point.destination ? point.destination.name : null;
     props.offers = (point.offers
       && point.offers.offers && point.offers.offers.length > 0) ? point.offers.offers : null;
-    props.isSubmitDisabled=true;
+    props.isSubmitDisabled = true;
     return props;
   }
 
-  resetState = (point)=>{
-    this.updateData({...EditFormView.parsePointToData(point)},true);
+  resetState = (point) => {
+    this.updateData({ ...EditFormView.parsePointToData(point) }, true);
   }
 
   get template() {
@@ -131,45 +131,47 @@ class EditFormView extends SmartView {
     this.#handler.rollupButtonClick();
   }
 
-  #handleEventTypeToggleClick = ()=>{
-    this.element.querySelector('.event__type-group').addEventListener('click',this.#handleEventTypeChange);
+  #handleEventTypeToggleClick = () => {
+    this.element.querySelector('.event__type-group').addEventListener('click', this.#handleEventTypeChange);
   };
 
-  #handleEventTypeChange = (evt)=>{
-    if(evt.target.tagName!=='LABEL'){
+  #handleEventTypeChange = (evt) => {
+    if (evt.target.tagName !== 'LABEL') {
       return;
     }
     const type = evt.target.parentNode.querySelector('input').value;
     const typeToOffers = generateTypeToOffers().getOffersByType(type.toUpperCase());
-    this.updateData({eventType : evt.target.parentNode.querySelector('input').value,
-      offers:typeToOffers?typeToOffers.offers:null},true);
+    this.updateData({
+      eventType: evt.target.parentNode.querySelector('input').value,
+      offers: typeToOffers ? typeToOffers.offers : null
+    }, true);
 
   };
 
-  #handleOnDestinationInput = (evt)=>{
+  #handleOnDestinationInput = (evt) => {
     evt.preventDefault();
     const destinationName = evt.target.value;
     const prevDestinationName = this._data.prevDestinationName;
-    if(destinationName === prevDestinationName){
+    if (destinationName === prevDestinationName) {
       return;
     }
     let shouldRedraw = false;
     const destination = generateDestinationNameToDestinations().getDescriptionByDestination(destinationName);
-    const data = {destination : destination};
-    if(destination){
+    const data = { destination: destination };
+    if (destination) {
       shouldRedraw = true;
       data.prevDestinationName = destinationName;
     }
-    this.updateData(data,shouldRedraw);
+    this.updateData(data, shouldRedraw);
   };
 
-  restoreHandlers = ()=>{
-    if(this._data.isAddForm){
+  restoreHandlers = () => {
+    if (this._data.isAddForm) {
       return;
     }
-    this.element.querySelector('.event__type-btn').addEventListener('click',this.#handleEventTypeToggleClick);
-    this.element.querySelector('.event__input--destination').addEventListener('input',this.#handleOnDestinationInput);
-    this.element.querySelector('.event__input--destination').addEventListener('click',this.#handleOnDestinationInput);
+    this.element.querySelector('.event__type-btn').addEventListener('click', this.#handleEventTypeToggleClick);
+    this.element.querySelector('.event__input--destination').addEventListener('input', this.#handleOnDestinationInput);
+    this.element.querySelector('.event__input--destination').addEventListener('click', this.#handleOnDestinationInput);
     this.addFormSubmitHandler();
     this.addRollupButtonClickHandler();
   }
