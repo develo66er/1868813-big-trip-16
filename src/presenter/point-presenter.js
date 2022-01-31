@@ -83,6 +83,8 @@ class PointPresenter {
     this.#replaceEditFormToEventPoint();
     this.#eventPointComponent.addRollupButtonClickHandler();
     document.removeEventListener('keydown', this.#editFormCloseHandler);
+    this.#eventPointEditComponent.resetState(this.#point);
+
   };
 
   #documentEscapeKeyPressHandler = (evt) => {
@@ -94,8 +96,7 @@ class PointPresenter {
   #editFormOpenHandler = () => {
     this.#eventPointComponent.removeRollupButtonClickHandler();
     this.#replaceEventPointToEditForm();
-    this.#eventPointEditComponent.addRollupButtonClickHandler();
-    this.#eventPointEditComponent.addFormSubmitHandler();
+    this.#eventPointEditComponent.restoreHandlers();
     document.addEventListener('keydown', this.#documentEscapeKeyPressHandler);
   };
 
