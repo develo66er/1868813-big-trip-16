@@ -10,7 +10,7 @@ const createAvailableOffersTemplate = (offers) => `
     <div 
       class="event__available-offers">
 
-        ${offers.map((offer) => new OfferItemEditView(offer).template).reduce((prev, next) => `${prev} ${next}`)}
+        ${offers.map((offer) => new OfferItemEditView(offer).template).reduce((prev, next) => `${prev} ${next}`, '')}
     
     </div>
 </section>

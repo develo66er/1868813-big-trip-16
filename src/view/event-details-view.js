@@ -2,14 +2,17 @@ import { AvailableOffersView } from './available-offers-view.js';
 import { DestinationView } from './destination-view.js';
 import { AbstractView } from './abstract-view';
 
-const createEventDetailsTemplate = (point) => `<section
+const createEventDetailsTemplate = (props) => {
+  const {offers,destination} = props;
+  return `<section
 class="event__details">
 
-${point.offers && point.offers.offers && point.offers.offers.length > 0 ? new AvailableOffersView(point.offers.offers).template : ''}
+${offers ? new AvailableOffersView(offers).template : ''}
 
-${point.destination ? new DestinationView(point.destination).template : ''}
+${destination ? new DestinationView(destination).template : ''}
 
 </section>`;
+};
 
 class EventDetailsView extends AbstractView {
   #point = null;

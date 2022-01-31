@@ -1,11 +1,11 @@
 import { PointPresenter } from './point-presenter.js';
 import { render } from '../render-view.js';
 import { EmptyMessageView } from '../view/empty-message-view.js';
-import { AddFormView } from '../view/add-form-view.js';
 import { SortView } from '../view/sort-view.js';
 import { RenderPosition } from '../render-position.js';
 import { updateItem,sortByDate,sortByPrice,sortByTime } from '../commons.js';
 import {SortType} from '../sort-type.js';
+import { EditFormView } from '../view/edit-form-view.js';
 
 const TRIP_EVENTS_NUMBER = 20;
 
@@ -54,7 +54,7 @@ class TripPresenter {
   #renderAddForm = (point) => {
     const tripEventItem = document.createElement('li');
     tripEventItem.classList.add('trip-events__item');
-    render(tripEventItem, new AddFormView(point), RenderPosition.BEFOREEND);
+    render(tripEventItem, new EditFormView(point,true), RenderPosition.BEFOREEND);
     render(this.#tripEventList, tripEventItem, RenderPosition.BEFOREEND);
   }
 

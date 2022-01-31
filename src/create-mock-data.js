@@ -81,9 +81,9 @@ const getPictures = () => {
   return pictures;
 };
 
-const generateDestination = () => ({
+const generateDestination = (destinationName) => ({
   description: getDestinationDescription(),
-  name: DESTINATION_NAMES[getRandomInteger(0, DESTINATION_NAMES.length - 1)],
+  name: destinationName ? destinationName : DESTINATION_NAMES[getRandomInteger(0, DESTINATION_NAMES.length - 1)],
   pictures: getPictures()
 });
 
@@ -102,8 +102,8 @@ const generateRandomOffers = () => {
   }));
 };
 
-const generateOffers = () => ({
-  type: generateType(),
+const generateOffers = (passedType) => ({
+  type: passedType ? passedType : generateType(),
   offers: generateRandomOffers()
 });
 
@@ -124,6 +124,30 @@ const generatePoint = () => {
   };
 };
 
+const generateTypeToOffers = () => {
+  const typeToOffers = new Map();
+  const keys = Object.keys(EventPointType);
+
+  for (let i = 0; i < keys.length; i++) {
+    const type = keys[i];
+    typeToOffers.set(type, generateOffers(type));
+  }
+  return {
+    getOffersByType: (type) => typeToOffers.get(type)
+  };
+};
+
+const generateDestinationNameToDestinations = () => {
+  const destinationNameToDestinations = new Map();
+  for (let i = 0; i < DESTINATION_NAMES.length; i++) {
+    destinationNameToDestinations.set(DESTINATION_NAMES[i], generateDestination(DESTINATION_NAMES[i]));
+  }
+  return {
+    getDescriptionByDestination: (destinationName) => destinationNameToDestinations.get(destinationName)
+  };
+};
+
+
 const generatePoints = (mockPointsNumber) => {
   const mockPoints = [];
   for (let index = 0; index < mockPointsNumber; index++) {
@@ -132,4 +156,4 @@ const generatePoints = (mockPointsNumber) => {
   return mockPoints;
 };
 
-export { generatePoints, destinationNames };
+export { generatePoints, destinationNames, generateTypeToOffers, generateDestinationNameToDestinations };

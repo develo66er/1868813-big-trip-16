@@ -1,22 +1,8 @@
 import { EventTypeItemsView } from './event-type-items-view.js';
 import { DestinationNamesView } from './destination-names-view.js';
-import dayjs from 'dayjs';
-import { AbstractView } from './abstract-view';
 
-const createEditFormCaptionTemplate = (point, isAddForm) => {
-  let dateFrom;
-  let dateTo;
-  let price;
-  const destinationNameValue = 'Madrid';
-  if (isAddForm) {
-    dateFrom = dateTo = dayjs().startOf('day').format('DD/MM/YY HH:mm');
-    price = '';
-  } else {
-    dateFrom = point.dateFrom ? point.dateFrom.format('DD/MM/YY HH:mm') : '';
-    dateTo = point.dateTo ? point.dateTo.format('DD/MM/YY HH:mm') : '';
-    price = `${point.basePrice}`;
-  }
-
+const createEditFormCaptionTemplate = (props) => {
+  const{isAddForm,eventType,destination,dateFrom,dateTo,price} = props;
   return `
         <div class="event__type-wrapper">
     
@@ -31,7 +17,7 @@ const createEditFormCaptionTemplate = (point, isAddForm) => {
                 <img class="event__type-icon" 
                     width="17" 
                     height="17"
-                    src="img/icons/${point.type.toLowerCase()}.png" 
+                    src="img/icons/${eventType.toLowerCase()}.png" 
                     alt="Event type icon">
             
             </label>
@@ -64,14 +50,14 @@ const createEditFormCaptionTemplate = (point, isAddForm) => {
             <label 
                 class="event__label  event__type-output" 
                 for="event-destination-1">
-                ${point.type}
+                ${eventType}
             </label>
     
             <input 
                 class="event__input  event__input--destination"
                 id="event-destination-1" type="text" 
                 name="event-destination"
-                value="${destinationNameValue}" 
+                value="${destination?destination.name:'Madrid'}" 
                 list="destination-list-1">
             
             ${new DestinationNamesView().template}
@@ -131,18 +117,4 @@ const createEditFormCaptionTemplate = (point, isAddForm) => {
         `;
 };
 
-class EditFormCaptionView extends AbstractView {
-    #point = null;
-    #isAddForm = false;
-
-    constructor(point, isAddForm) {
-      super();
-      this.#point = point;
-      this.#isAddForm = isAddForm;
-    }
-
-    get template() {
-      return createEditFormCaptionTemplate(this.#point, this.#isAddForm);
-    }
-}
-export { EditFormCaptionView };
+export { createEditFormCaptionTemplate };
