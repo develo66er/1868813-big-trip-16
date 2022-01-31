@@ -4,6 +4,8 @@ import { DestinationView } from './destination-view.js';
 import { SmartView } from './smart-view.js';
 import { generateTypeToOffers, generateDestinationNameToDestinations } from '../create-mock-data.js';
 import dayjs from 'dayjs';
+import flatpickr from 'flatpickr';
+import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 const createEventDetailsTemplate = (props) => {
   const { offers, destination } = props;
@@ -65,10 +67,52 @@ ${destination || (offers) ? createEventDetailsTemplate(props) : ''}
 
 class EditFormView extends SmartView {
   #handler = {};
+  #fromDatePicker = null;
+  #toDatePicker = null;
+
   constructor(point, isAddForm) {
     super();
     this._data = EditFormView.parsePointToData(point, isAddForm);
     this.restoreHandlers();
+  }
+
+  #setDatePicker = () => {
+    this.#fromDatePicker = flatpickr(this.element.querySelector('input[name="event-start-time"]'),
+      {
+        dateFormat: 'd/m/y H:i',
+        enableTime: true,
+        defaultDate: this._data.dateFrom,
+        onChange: this.#onDateFromChangeHandler
+      });
+    this.#toDatePicker = flatpickr(this.element.querySelector('input[name="event-end-time"]'),
+      {
+        dateFormat: 'd/m/y H:i',
+        enableTime: true,
+        defaultDate: this._data.dateTo,
+        onChange: this.#onDateTChangeHandler
+      });
+
+  }
+
+  #onDateFromChangeHandler = ([dateFrom]) => {
+    this.updateData({ dateFrom: dateFrom }, true);
+  }
+
+  #onDateTChangeHandler = ([dateTo]) => {
+    this.updateData({ dateTo: dateTo }, true);
+
+  }
+
+  removeElement = () => {
+    super.removeElement();
+    if (this.#fromDatePicker) {
+      this.#fromDatePicker.destroy();
+      this.#fromDatePicker = null;
+    }
+    if (this.#toDatePicker) {
+      this.#toDatePicker.destroy();
+      this.#toDatePicker = null;
+    }
   }
 
   static parsePointToData = (point, isAddForm) => {
@@ -170,10 +214,11 @@ class EditFormView extends SmartView {
       return;
     }
     this.element.querySelector('.event__type-btn').addEventListener('click', this.#handleEventTypeToggleClick);
-    this.element.querySelector('.event__input--destination').addEventListener('input', this.#handleOnDestinationInput);
-    this.element.querySelector('.event__input--destination').addEventListener('click', this.#handleOnDestinationInput);
+    this.element.querySelector('#event-destination-2').addEventListener('input', this.#handleOnDestinationInput);
+    this.element.querySelector('#event-destination-2').addEventListener('click', this.#handleOnDestinationInput);
     this.addFormSubmitHandler();
     this.addRollupButtonClickHandler();
+    this.#setDatePicker();
   }
 }
 export { EditFormView };
